@@ -12,7 +12,12 @@ router
 router
   .route('/:id')
   .get(vacationsController.getVacation)
-  .patch(vacationsController.updateVacation)
+  .patch(
+    authController.protect,
+    // restricts to admin role, stored as BIT(0, 1)
+    authController.restrictTo(1),
+    vacationsController.updateVacation
+  )
   .delete(
     authController.protect,
     // restricts to admin role, stored as BIT(0, 1)

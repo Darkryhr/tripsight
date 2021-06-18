@@ -11,7 +11,6 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  console.log(req.user[0].id);
   q = 'SELECT * FROM users WHERE id = ?';
   const user = await connection.executeWithParameters(q, req.user[0].id);
   res.status(200).json({ message: 'success', data: user });
