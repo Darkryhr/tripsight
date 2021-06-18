@@ -25,10 +25,15 @@ exports.updateVacation = catchAsync(async (req, res, next) => {
   const { body } = req;
   q = 'UPDATE vacations SET ? WHERE id=?';
   await connection.executeWithParameters(q, [body, req.params.id]);
-  res.status(200).json({ message: 'success' });
+  q = 'SELECT * FROM vacations WHERE id = ?';
+  const vacation = await connection.executeWithParameters(q, req.params.id);
+  console.log(vacation);
+  res.status(200).json({ message: 'success', result: vacation });
 });
 
 exports.deleteVacation = catchAsync(async (req, res, next) => {
+  q = 'DELETE FROM follows WHERE vacation_id = ?';
+  await connection.executeWithParameters(q, req.params.id);
   q = 'DELETE FROM vacations WHERE id=?';
   await connection.executeWithParameters(q, req.params.id);
   res.status(204).json({

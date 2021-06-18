@@ -88,7 +88,8 @@ UPDATE users SET is_admin = 1 WHERE id=1;
 DROP TABLE vacations;
 
 -- @BLOCK
-DELETE FROM follows WHERE follower_id = 6 ;
+DELETE FROM follows WHERE vacation_id = 2
+DELETE FROM vacations WHERE id = 2 ;
 
 -- @BLOCK
 ALTER TABLE vacations AUTO_INCREMENT= 0;
