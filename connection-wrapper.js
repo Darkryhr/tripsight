@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: keys.DB_USER,
   password: keys.DB_PASSWORD,
-  database: 'vacationsite',
+  database: 'tripsight',
   dateStrings: 'date',
 });
 

@@ -9,7 +9,7 @@
             "port": 3306,
             "driver": "MySQL",
             "name": "killme",
-            "database": "vacationsite",
+            "database": "tripsight",
             "username": "root",
             "password": "killme"
         }

@@ -5,6 +5,9 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router
+  .route('/all')
+  .get(authController.protect, followsController.getAllFollows);
+router
   .route('/:id')
   .get(authController.protect, followsController.followVacation)
   .delete(authController.protect, followsController.removeVacation);

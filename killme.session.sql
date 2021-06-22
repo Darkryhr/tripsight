@@ -42,11 +42,6 @@ VALUES ('Hawaii2', 'Obama was born here, allegedly', 520.3,'2021-05-21','2021-06
         FOREIGN KEY (vacation_id) REFERENCES vacations(id),
         PRIMARY KEY(follower_id,vacation_id)
     );
-
--- @BLOCK
-INSERT INTO follows (follower_id, vacation_id)
-VALUES (6, 12);
-
 -- @BLOCK
 SELECT first_name,count(*) as c FROM users GROUP BY first_name;
 
@@ -78,18 +73,21 @@ RIGHT JOIN vacations
 ON follows.vacation_id = vacations.id
 WHERE follower_id = 1;
 
--- @BLOCK
-SELECT * FROM vacations;
+-- @BLOCK 
+SELECT * FROM follows
+LEFT JOIN vacations 
+ON follows.vacation_id = vacations.id
+ORDER BY CASE WHEN id = 1 THEN 1 ELSE 2 END
+;
 
 -- @BLOCK
 UPDATE users SET is_admin = 1 WHERE id=1;
 
 -- @BLOCK
-DROP TABLE vacations;
+ALTER TABLE users AUTO_INCREMENT= 0;
+
 
 -- @BLOCK
-DELETE FROM follows WHERE vacation_id = 2
-DELETE FROM vacations WHERE id = 2 ;
+SELECT * FROM users;
 
 -- @BLOCK
-ALTER TABLE vacations AUTO_INCREMENT= 0;

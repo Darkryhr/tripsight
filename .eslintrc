@@ -9,6 +9,7 @@
     "no-process-exit": "warn",
     "prefer-destructuring": "warn",
     "consistent-return": "off",
-    "no-param-reassign": "warn"
+    "no-param-reassign": "warn",
+    "camelcase": "warn"
   }
 }

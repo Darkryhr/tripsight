@@ -1,6 +1,7 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const keys = require('../config/keys');
@@ -24,11 +25,16 @@ const passwordCompare = async (candidatePassword, userPassword) => {
 
 //* CRUD
 exports.signUp = catchAsync(async (req, res, next) => {
-  q = 'INSERT INTO users SET ?';
-  const newUser = { ...req.body };
-  newUser.is_admin = 0;
-  newUser.password = await bcrypt.hash(newUser.password, 12);
-  const user = await connection.executeWithParameters(q, newUser);
+  const { first_name, last_name, username, password } = req.body;
+  q = 'SELECT id FROM users WHERE username=?';
+  const named = await connection.executeWithParameters(q, username);
+  if (named.length) {
+    return next(new AppError('This username already exists', 401));
+  }
+  q = `INSERT INTO users (first_name, last_name, username, password, is_admin) VALUES (?,?, ?, ?, 0)`;
+  const passwordHashed = await bcrypt.hash(password, 12);
+  const signupValues = [first_name, last_name, username, passwordHashed];
+  const user = await connection.executeWithParameters(q, signupValues);
   const token = signToken(user.insertId);
   res.status(201).json({
     message: 'success',
@@ -49,10 +55,14 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user[0] || !(await passwordCompare(password, user[0].password)))
     return next(new AppError('Incorrect CREDS', 401));
   // send token to client
+  const [userData] = user;
+  console.log(userData);
   const token = signToken(user[0].id);
   // cache.set(token, result);
   // if (!token) return next(new AppError('No Token', 400));
-  res.status(200).json({ status: 'success', token });
+  res
+    .status(200)
+    .json({ status: 'success', token, isAdmin: userData.is_admin });
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
