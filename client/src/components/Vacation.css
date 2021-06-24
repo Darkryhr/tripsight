@@ -1,0 +1,221 @@
+.vacation__background {
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background: #6e6e6e;
+  background-color: rgba(77, 77, 77, 0.9); /* Black w/ opacity */
+}
+
+.vacation {
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  background: #242424;
+  width: 300px;
+  box-shadow: 3px 3px 10px -5px #393939;
+  border-radius: 20px;
+}
+
+.vacation__img > img {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+}
+
+.vacation__content {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.vacation__content > div {
+  width: 100%;
+}
+
+.vacation__contentHeader {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.vacation__contentInfo {
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 100px;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.vacation__editForm {
+  color: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  max-height: 350px;
+  padding: 70px 0;
+}
+
+.vacation__editForm > form > button {
+  margin-top: 15px;
+  width: 50%;
+  padding: 10px 10px;
+}
+
+.vacation__editForm > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit__inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 30px;
+  width: 14rem;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+
+.edit__inputContainer > input {
+  color: black;
+}
+
+.vacation__contentInfo::-webkit-scrollbar {
+  display: none;
+}
+
+.vacation__contentInfo > p {
+  font-size: smaller;
+  max-height: 100px;
+}
+
+.vacation__contentFooter {
+  color: white;
+  width: 50%;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vacation__contentFooter > .MuiIconButton-root {
+  width: 40px;
+  height: 40px;
+}
+
+.vacation__name {
+  text-transform: capitalize;
+}
+
+.vacation__followed {
+  color: #55c57a;
+}
+
+.flip-in-hor-bottom {
+  -webkit-animation: flip-in-hor-bottom 0.5s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.flip-out-hor-top {
+  -webkit-animation: flip-out-hor-top 0.45s
+    cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: flip-out-hor-top 0.45s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+.slide-top {
+  -webkit-animation: slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes flip-in-hor-bottom {
+  0% {
+    -webkit-transform: rotateX(80deg);
+    transform: rotateX(80deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+@keyframes flip-in-hor-bottom {
+  0% {
+    -webkit-transform: rotateX(80deg);
+    transform: rotateX(80deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes flip-out-hor-top {
+  0% {
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotateX(70deg);
+    transform: rotateX(70deg);
+    opacity: 0;
+  }
+}
+@keyframes flip-out-hor-top {
+  0% {
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotateX(70deg);
+    transform: rotateX(70deg);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+  }
+}
+
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+  }
+}

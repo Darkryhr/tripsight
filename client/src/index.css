@@ -1,0 +1,157 @@
+* {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+*::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: #222222;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #55c57a;
+}
+
+body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  font-family: 'Lato', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.logo {
+  display: block;
+  color: white;
+  text-transform: lowercase;
+  font-weight: 900;
+  padding: 10px 20px;
+  cursor: pointer;
+  background: none;
+  transition: ease 500ms;
+}
+
+button {
+  text-transform: uppercase;
+  font-weight: 600;
+  background: linear-gradient(
+    0deg,
+    rgba(85, 197, 122, 1) 0%,
+    rgba(85, 237, 136, 1) 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: ease-in 100ms all;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+a {
+  text-decoration: none;
+  /* color: #2b2b2b; */
+  color: #ffffff;
+}
+
+button a {
+  color: #ffffff;
+}
+
+input {
+  border: none;
+}
+
+.loading {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(20, 20, 20, 0.9); /* Black w/ opacity */
+}
+
+.loading > h1 {
+  color: rgb(0, 0, 0);
+}
+
+.lds-ring {
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  overflow: hidden;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #55c57a;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #55c57a transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+li {
+  list-style: none;
+}
+
+.notfound {
+  overflow-x: hidden;
+}
+
+.MuiIconButton-root {
+  background: gray;
+}
+
+.MuiIconButton-label {
+  overflow-x: visible;
+}
