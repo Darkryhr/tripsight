@@ -1,19 +1,30 @@
-const mysql = require('mysql');
 const catchAsync = require('../utils/catchAsync');
 const connection = require('../connection-wrapper');
+const Cache = require('../cache');
 
 let q;
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-  q = 'SELECT * FROM users';
-  const users = await connection.execute(q);
-  res.status(200).json({ message: 'success', data: users });
+  if (!Cache.has('allUsers') || Cache.isExpired('allUsers')) {
+    q = 'SELECT * FROM users';
+    const users = await connection.execute(q);
+    Cache.set('allUsers', users);
+  }
+  res.status(200).json({ message: 'success', data: Cache.get('allUsers') });
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  q = 'SELECT * FROM users WHERE id = ?';
-  const user = await connection.executeWithParameters(q, req.user[0].id);
-  res.status(200).json({ message: 'success', data: user });
+  if (
+    !Cache.has(`user_${req.user[0].id}`) ||
+    Cache.isExpired(`user_${req.user[0].id}`)
+  ) {
+    q = 'SELECT * FROM users WHERE id = ?';
+    const user = await connection.executeWithParameters(q, req.user[0].id);
+    Cache.set(`user_${req.user[0].id}`, user);
+  }
+  res
+    .status(200)
+    .json({ message: 'success', data: Cache.get(`user_${req.user[0].id}`) });
 });
 
 exports.addUser = catchAsync(async (req, res, next) => {

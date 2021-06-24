@@ -1,7 +1,6 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const validator = require('validator');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const keys = require('../config/keys');
@@ -56,7 +55,6 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect CREDS', 401));
   // send token to client
   const [userData] = user;
-  console.log(userData);
   const token = signToken(user[0].id);
   // cache.set(token, result);
   // if (!token) return next(new AppError('No Token', 400));

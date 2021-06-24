@@ -84,10 +84,11 @@ ORDER BY CASE WHEN id = 1 THEN 1 ELSE 2 END
 UPDATE users SET is_admin = 1 WHERE id=1;
 
 -- @BLOCK
-ALTER TABLE users AUTO_INCREMENT= 0;
+ALTER TABLE vacations AUTO_INCREMENT= 0;
 
 
 -- @BLOCK
-SELECT * FROM users;
+DELETE FROM vacations WHERE id > 12;
 
 -- @BLOCK
+SELECT * FROM vacations;

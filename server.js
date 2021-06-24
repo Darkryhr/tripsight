@@ -6,6 +6,7 @@ const followRoutes = require('./routes/followRoute');
 const keys = require('./config/keys');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const Cache = require('./cache');
 
 const app = express();
 
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 5000;
 if (keys.DEV) app.use(morgan('dev'));
 
 app.listen(PORT, () => {
+  Cache.clear();
   console.log(`App running on port ${PORT}...`);
 });
 

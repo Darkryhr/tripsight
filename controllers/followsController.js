@@ -1,5 +1,5 @@
 const catchAsync = require('../utils/catchAsync');
-
+const Cache = require('../cache');
 const connection = require('../connection-wrapper');
 
 let q;
@@ -26,21 +26,29 @@ exports.removeVacation = catchAsync(async (req, res, next) => {
 });
 
 exports.getFollowed = catchAsync(async (req, res, next) => {
-  q = `SELECT DISTINCT id FROM follows
-  RIGHT JOIN vacations 
-  ON follows.vacation_id = vacations.id
-  WHERE follower_id = ?`;
-  const result = await connection.executeWithParameters(q, req.user[0].id);
-  const followed = result.map((follow) => follow.id);
-  res.status(201).json({ followed });
+  if (
+    !Cache.has(`${req.user[0].id}_followed`) ||
+    Cache.isExpired(`${req.user[0].id}_followed`, 60)
+  ) {
+    q = `SELECT DISTINCT id FROM follows
+    RIGHT JOIN vacations 
+    ON follows.vacation_id = vacations.id
+    WHERE follower_id = ?`;
+    const result = await connection.executeWithParameters(q, req.user[0].id);
+    const followed = result.map((follow) => follow.id);
+    Cache.set(`${req.user[0].id}_followed`, followed);
+  }
+  res.status(201).json({ followed: Cache.get(`${req.user[0].id}_followed`) });
 });
 
 exports.getAllFollows = catchAsync(async (req, res, next) => {
-  q = `SELECT vacation_id FROM follows ORDER BY CASE WHEN vacation_id = 1 THEN 1 ELSE 2 END`;
-  const result = await connection.execute(q);
-  const byInstanceArray = occurenceCount(
-    result.map((follow) => follow.vacation_id)
-  );
-  console.log(byInstanceArray);
-  res.status(201).json({ follows: byInstanceArray });
+  if (!Cache.has('allFollows') || Cache.isExpired('allFollows', 60)) {
+    q = `SELECT vacation_id FROM follows ORDER BY CASE WHEN vacation_id = 1 THEN 1 ELSE 2 END`;
+    const result = await connection.execute(q);
+    const byInstanceArray = occurenceCount(
+      result.map((follow) => follow.vacation_id)
+    );
+    Cache.set('allFollows', byInstanceArray);
+  }
+  res.status(201).json({ follows: Cache.get('allFollows') });
 });
